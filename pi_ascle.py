@@ -68,37 +68,20 @@ def rgb2gray(img):
 		if ncanais(img_clone) == 1:
 			return img_clone
 		else:
-			for r in range(0, size(img_clone)[0]-1):
-				for c in range(0, size(img_clone)[1]-1):
-					temp = copy.deepcopy(c)
-					print(c)
-					img_clone[r, c] = np.array([(temp[0] * 0.299) + (temp[1] * 0.587) + (temp[2] * 0.114)], dtype=np.uint8)
-					print(img_clone[r, c])
+			for r in range(0, size(img_clone)[1]-1):
+				for c in range(0, size(img_clone)[0]-1):
+					#temp = copy.deepcopy(img_clone[r, c])
+					img_clone[r, c] = np.array([np.uint8((img_clone[r, c][0] * 0.299) + (img_clone[r, c][1] * 0.587) + (img_clone[r, c][2] * 0.114))], dtype=np.uint8)
 
 		return img_clone
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
+# teste função 5
+def rgb2gray_test():
+	lena_jpg = abrir(IMG_LENNA_50)
+	mostrar(rgb2gray(lena_jpg))
+	mostrar(lena_jpg)
 
 
-
-# 6 - imreadgray entrada nome do arquivo  retorna imagem
-
-#if __name__ == "__main__":
-#lena_jpg = abrir(IMG_LENNA_JPG)
-#lena_png = abrir(IMG_LENNA_PNG)
-#mostrar(lena_jpg)
-#mostrar(lena_png)
-
-
-#lena_gs = abrir(IMG_LENNA_50)
-#mostrar(lena_gs)
-#print(type(lena_jpg.shape))
-#print(lena_jpg.shape)
-#print(type(size(lena_jpg)))
-#print(lena_jpg)
-
-lena_jpg = abrir(IMG_LENNA_50)
-mostrar(lena_jpg)
-mostrar(rgb2gray(lena_jpg))
-
+rgb2gray_test()

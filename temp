@@ -1,0 +1,6 @@
+			for r in img_clone:
+				for c in r:
+					temp = copy.deepcopy(c)
+					print(c)
+					c = np.array([(temp[0] * 0.299) + (temp[1] * 0.587) + (temp[2] * 0.114)], dtype=np.uint8)
+					print(c	)
