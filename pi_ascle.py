@@ -8,7 +8,10 @@ import numpy as np
 
 from PIL import Image
 
+import copy
+
 IMG_LENNA_JPG = 'imagens/lena.jpeg'
+# width(largura, X ):46 heigth(comprimento, Y):41
 IMG_LENNA_50 =  'imagens/lena50.jpeg'
 IMG_LENNA_PNG = 'imagens/lena.png'
 IMG_LENNA_GS =  'imagens/lenna_grey.jpg'
@@ -52,7 +55,7 @@ def ncanais(img):
 # e a segunda é a altura em pixels da imagem de entrada.
 def size(img):
 	if type(img) is np.ndarray:
-		return np.array([img.shape[0], img.shape[1]])
+		return np.array([img.shape[1], img.shape[0]])
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
@@ -60,13 +63,19 @@ def size(img):
 
 # 5 - rgb2gray g = 0,299r + 0,587g + 0,114b + 0,0a     entrada imagem  retorna imagem
 def rgb2gray(img):
-	if type(img) is np.ndarray:
-		if ncanais(img) == 1:
-			return img
+	img_clone = copy.deepcopy(img)
+	if type(img_clone) is np.ndarray:
+		if ncanais(img_clone) == 1:
+			return img_clone
 		else:
-			for r in img:
-				for c in r:
-					(c[0]*0,299) + (c[1]*0,587) + (c[2]*0,114)
+			for r in range(0, size(img_clone)[0]-1):
+				for c in range(0, size(img_clone)[1]-1):
+					temp = copy.deepcopy(c)
+					print(c)
+					img_clone[r, c] = np.array([(temp[0] * 0.299) + (temp[1] * 0.587) + (temp[2] * 0.114)], dtype=np.uint8)
+					print(img_clone[r, c])
+
+		return img_clone
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
@@ -90,6 +99,6 @@ def rgb2gray(img):
 #print(lena_jpg)
 
 lena_jpg = abrir(IMG_LENNA_50)
-print(size(lena_jpg))
-rgb2gray(lena_jpg)
+mostrar(lena_jpg)
+mostrar(rgb2gray(lena_jpg))
 
