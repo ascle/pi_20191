@@ -25,7 +25,6 @@ def abrir(path):
 	else:
 		raise TypeError("Path must be a string")
 		
-		
 
 # 2 - se ligar no grayscale (color map), imagens pequenas (interpolação nearest) OK
 def mostrar(img):
@@ -37,7 +36,6 @@ def mostrar(img):
 		plt.show()
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
-		
 		
 
 # 3 - se for uma imagem grayscale OK
@@ -60,7 +58,6 @@ def size(img):
 		raise TypeError("Image must be a numpy.ndarray")
 
 
-
 # 5 - rgb2gray g = 0,299r + 0,587g + 0,114b + 0,0a     entrada imagem  retorna imagem
 def rgb2gray(img):
 	img_clone = copy.deepcopy(img)
@@ -77,11 +74,27 @@ def rgb2gray(img):
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
+
 # teste função 5
 def rgb2gray_test():
 	lena_jpg = abrir(IMG_LENNA_50)
 	mostrar(rgb2gray(lena_jpg))
 	mostrar(lena_jpg)
+
+
+# Questão 18 - Crie uma função chamada seSquare3, que retorna o elemento estruturante binário [[1,1, 1], [1, 1, 1], [1, 1, 1]].
+def seSquare3():
+	#return np.full((3,3), 1)
+	return np.array([[1,1, 1],
+					 [1, 1, 1],
+					 [1, 1, 1]], dtype=np.uint8)
+
+
+# Questão 19 - Crie uma função chamada seCross3, que retorna o elemento estruturante binário [[0, 1,0], [1, 1, 1], [0, 1, 0]].
+def seCross3():
+	return np.array([[0, 1,0],
+					 [1, 1, 1],
+					 [0, 1, 0]], dtype=np.uint8)
 
 
 rgb2gray_test()
