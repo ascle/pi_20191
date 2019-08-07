@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import matplotlib.cm as cm
-
+import cmath
 import numpy as np
 
 from PIL import Image
@@ -97,4 +97,35 @@ def seCross3():
 					 [0, 1, 0]], dtype=np.uint8)
 
 
-rgb2gray_test()
+# Discrete fourier transform
+def dft_1D(x):
+    t = []
+    N = len(x)
+    for k in range(N):
+        a = 0
+        for n in range(N):
+            a += x[n]*cmath.exp(-2j*cmath.pi*k*n*(1/N))
+        t.append(a)
+    return t
+
+# Inverse discrete fourier transform
+def idft_1D(t):
+    x = []
+    N = len(t)
+    for n in range(N):
+        a = 0
+        for k in range(N):
+            a += t[k]*cmath.exp(2j*cmath.pi*k*n*(1/N))
+        a /= N
+        x.append(a)
+    return x
+
+def dft_1D_test():
+	array = [25,36,89,214,36,55,41,2,3,255]
+	dft = dft_1D(array)
+	print(array)
+	print(dft)
+	print(idft_1D(dft))
+
+
+dft_1D_test()
