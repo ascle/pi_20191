@@ -15,7 +15,7 @@ IMG_LENNA_JPG = 'imagens/lena.jpeg'
 IMG_LENNA_50 =  'imagens/lena50.jpeg'
 IMG_LENNA_PNG = 'imagens/lena.png'
 IMG_LENNA_GS =  'imagens/lenna_grey.jpg'
-
+PI2 = cmath.pi * 2.0
 
 
 # 1 - usar sempre o dtype int8 OK
@@ -51,6 +51,7 @@ def ncanais(img):
 
 # 4 - Crie uma função chamada size que retorna um vetor onde a primeira posição é a largura
 # e a segunda é a altura em pixels da imagem de entrada.
+# (imgx, imgy)
 def size(img):
 	if type(img) is np.ndarray:
 		return np.array([img.shape[1], img.shape[0]])
@@ -100,14 +101,14 @@ def seCross3():
 # Discrete fourier transform
 def dft_1D(_array):
 	if type(_array) is np.ndarray:
-		t = []
-		N = len(_array)
-		for k in range(N):
+		retornar = []
+		len_x = len(_array)
+		for k in range(len_x):
 			a = 0
-			for n in range(N):
-				a += _array[n]*cmath.exp(-2j*cmath.pi*k*n*(1/N))
-			t.append(a)
-		return np.array(t)
+			for n in range(len_x):
+				a += _array[n]*cmath.exp(-2j*cmath.pi*k*n*(1/len_x))
+			retornar.append(a)
+		return np.array(retornar)
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
@@ -115,15 +116,15 @@ def dft_1D(_array):
 # Inverse discrete fourier transform
 def idft_1D(_array):
 	if type(_array) is np.ndarray:
-		x = []
-		N = len(_array)
-		for n in range(N):
+		retornar = []
+		len_x = len(_array)
+		for n in range(len_x):
 			a = 0
-			for k in range(N):
-				a += _array[k]*cmath.exp(2j*cmath.pi*k*n*(1/N))
-			a /= N
-			x.append(a)
-		return np.array(x)
+			for k in range(len_x):
+				a += _array[k]*cmath.exp(2j*cmath.pi*k*n*(1/len_x))
+			a /=len_x
+			retornar.append(a)
+		return np.array(retornar)
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
