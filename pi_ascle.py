@@ -98,32 +98,39 @@ def seCross3():
 
 
 # Discrete fourier transform
-def dft_1D(x):
-    t = []
-    N = len(x)
-    for k in range(N):
-        a = 0
-        for n in range(N):
-            a += x[n]*cmath.exp(-2j*cmath.pi*k*n*(1/N))
-        t.append(a)
-    return t
+def dft_1D(_array):
+	if type(_array) is np.ndarray:
+		t = []
+		N = len(_array)
+		for k in range(N):
+			a = 0
+			for n in range(N):
+				a += _array[n]*cmath.exp(-2j*cmath.pi*k*n*(1/N))
+			t.append(a)
+		return np.array(t)
+	else:
+		raise TypeError("Image must be a numpy.ndarray")
+
 
 # Inverse discrete fourier transform
-def idft_1D(t):
-    x = []
-    N = len(t)
-    for n in range(N):
-        a = 0
-        for k in range(N):
-            a += t[k]*cmath.exp(2j*cmath.pi*k*n*(1/N))
-        a /= N
-        x.append(a)
-    return x
+def idft_1D(_array):
+	if type(_array) is np.ndarray:
+		x = []
+		N = len(_array)
+		for n in range(N):
+			a = 0
+			for k in range(N):
+				a += _array[k]*cmath.exp(2j*cmath.pi*k*n*(1/N))
+			a /= N
+			x.append(a)
+		return np.array(x)
+	else:
+		raise TypeError("Image must be a numpy.ndarray")
 
 def dft_1D_test():
-	array = [25,36,89,214,36,55,41,2,3,255]
-	dft = dft_1D(array)
-	print(array)
+	_array = np.array([25,36,89,214,36,55,41,2,3,255], dtype=np.uint8)
+	dft = dft_1D(_array)
+	print(_array)
 	print(dft)
 	print(idft_1D(dft))
 
