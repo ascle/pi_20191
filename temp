@@ -4,3 +4,16 @@
 					print(c)
 					c = np.array([(temp[0] * 0.299) + (temp[1] * 0.587) + (temp[2] * 0.114)], dtype=np.uint8)
 					print(c	)
+
+
+def FT_2D(X):
+    m, n = X.shape
+
+    for k_m in range(m)
+        for k_n in range(n)
+            temp = 0
+            for j in range(n)
+                for i in range(m)
+                    temp += sum( X[i,j]*np.exp(-1j*2*np.pi*(k_m*i/m + k_n*j/n))  )
+            retorno[k_m, k_n] = sum([])
+     return np.array()
