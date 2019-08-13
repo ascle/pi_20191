@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import pi_ascle as cl
+import numpy as np
+
+from numpy.fft import fft
+from numpy.fft import ifft
 from datetime import datetime
+
 
 GAUSIAN_GIF = 'gaussian.gif'
 LENA_1_JPG = 'lena1.jpg'
@@ -18,116 +23,98 @@ SIN_COMBO_2_GIF = 'sincombo2.gif'
 SINX3_GIF = 'sinx3.gif'
 
 
+def questao3(_nome_imagem = "lena1.jpg"):
+	#imagem = cl.abrir("exercicio_fft/"+_nome_imagem)
+	#lena_dft = fft(imagem)
+	#lena_ifft = ifft(lena_dft)
+	questao_2("lena1.jpg")
+
+
+
+def questao_2(_nome_imagem):
+	imagem = cl.abrir("exercicio_fft/"+_nome_imagem)
+	lena_dft = fft(imagem)
+	lena_ifft = ifft(lena_dft)
+	
+	# pega a parte real e a partye imaginaria
+	lena_dft_real = np.zeros(lena_dft.shape)
+	lena_dft_imag = np.zeros(lena_dft.shape)
+	for r in range(0, cl.size(lena_dft)[1]-1):
+		for c in range(0, cl.size(lena_dft)[0]-1):
+			lena_dft_real[r, c] = lena_dft[r, c].real
+			lena_dft_imag[r, c] = lena_dft[r, c].imag
+			
+	#convere a ifft em imagem
+	lena_ifft_real = lena_dft_real = np.zeros(lena_ifft.shape)
+	for r in range(0, cl.size(lena_ifft)[1]-1):
+		for c in range(0, cl.size(lena_ifft)[0]-1):
+			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
+	
+	cl.mostrar(imagem, _nome_imagem)
+	cl.mostrar(lena_dft_real, "REAL - "+_nome_imagem)
+	cl.mostrar(lena_dft_imag, "IMAG - "+_nome_imagem)
+	cl.mostrar(lena_ifft_real, "INVERSA - "+_nome_imagem)
+
+
 def letra_a():
-    print(datetime.today())
-    imagem = cl.abrir("exercicio_fft/"+SIN2_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    print(datetime.today())
-    img_idft = idft_2D_gray_scale(img_dft)
-    print(datetime.today())
-
-    cl.mostrar(imagem, SIN2_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN2_GIF)
+	
 def letra_b():
-    imagem = cl.abrir("exercicio_fft/"+SIN4_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN4_GIF)
-    cl.mostrar(img_dft, "DFT - "+SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
+	questao_2(SIN4_GIF)
 
 def letra_c():
-    imagem = cl.abrir("exercicio_fft/"+SIN4H_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN4H_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN4H_GIF)
+	
 def letra_d():
-    imagem = cl.abrir("exercicio_fft/"+SIN8D_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN8D_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN8D_GIF)
+	
 def letra_e():
-    imagem = cl.abrir("exercicio_fft/"+SIN10_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN10_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN10_GIF)
+	 
 def letra_f():
-    imagem = cl.abrir("exercicio_fft/"+SIN26_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN26_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN26_GIF)
+	
 def letra_g():
-    imagem = cl.abrir("exercicio_fft/"+SIN_COMBO_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN_COMBO_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN_COMBO_GIF)
+	 
 def letra_h():
-    imagem = cl.abrir("exercicio_fft/"+SIN_COMBO_2_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN_COMBO_2_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN_COMBO_2_GIF)
+	  
 def letra_i():
-    imagem = cl.abrir("exercicio_fft/"+SINX3_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SINX3_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SINX3_GIF)
+	
 def letra_j():
-    imagem = cl.abrir("exercicio_fft/"+SIN_ALL_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, SIN_ALL_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(SIN_ALL_GIF)
+  
 def letra_k():
-    imagem = cl.abrir("exercicio_fft/"+GAUSIAN_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
-
-    cl.mostrar(imagem, GAUSIAN_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
-
+	questao_2(GAUSIAN_GIF)
+	
 def letra_l():
-    imagem = cl.abrir("exercicio_fft/"+SIN10_GAUSS_GIF)
-    img_dft = cl.dft_2D_gray_scale(imagem)
-    img_idft = idft_2D_gray_scale(img_dft)
+	questao_2(SIN10_GAUSS_GIF)
 
-    cl.mostrar(imagem, SIN10_GAUSS_GIF)
-    cl.mostrar(img_dft, "DFT - " + SIN4_GIF)
-    cl.mostrar(img_idft, "IDFT - " + SIN4_GIF)
+def print_q2():
+	letra_a()
+	letra_b()
+	letra_c()
+	letra_d()
+	letra_e()
+	letra_f()
+	letra_g()
+	letra_h()
+	letra_i()
+	letra_j()
+	letra_k()
+	letra_l()
+	
+	
+questao3()
 
 
-letra_a()
+
+
+
+
+
+
+
+	

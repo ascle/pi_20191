@@ -5,32 +5,12 @@ import matplotlib.image as mpimg
 import matplotlib.cm as cm
 import cmath
 import numpy as np
+import copy
 
 from PIL import Image
 
-import copy
-
-IMG_LENNA_JPG = 'imagens/lena.jpeg'
-IMG_LENNA_50  = 'imagens/lena50.jpeg'	# width(largura, X ):46 heigth(comprimento, Y):41
-IMG_LENNA_PNG = 'imagens/lena.png'
-IMG_LENNA_GS  = 'imagens/lenna_grey.jpg'
 
 PI2 = cmath.pi * 2.0
-
-GAUSIAN_GIF = 'gaussian.gif'
-LENA_1_JPG = 'lena1.jpg'
-SIN2_GIF = 'sin2.gif'
-SIN4_GIF = 'sin4.gif'
-SIN4H_GIF = 'sin4h.gif'
-SIN8D_GIF = 'sin8d.gif'
-SIN10_GIF = 'sin10+4h.gif'
-SIN10_GAUSS_GIF = 'sin10+4h+gaus.gif'
-SIN26_GIF = 'sin26.gif'
-SIN_ALL_GIF = 'sin_all.gif'
-SIN_COMBO_GIF = 'sincombo.gif'
-SIN_COMBO_2_GIF = 'sincombo2.gif'
-SINX3_GIF = 'sinx3.gif'
-
 
 
 # 1 - usar sempre o dtype int8 OK
@@ -92,13 +72,6 @@ def rgb2gray(img):
 		raise TypeError("Image must be a numpy.ndarray")
 
 
-# teste função 5
-def rgb2gray_test():
-	lena_jpg = abrir(IMG_LENNA_50)
-	mostrar(rgb2gray(lena_jpg))
-	mostrar(lena_jpg)
-
-
 # Questão 18 - Crie uma função chamada seSquare3, que retorna o elemento estruturante binário [[1,1, 1], [1, 1, 1], [1, 1, 1]].
 def seSquare3():
 	#return np.full((3,3), 1)
@@ -146,14 +119,6 @@ def idft_1D(_array):
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
-# Testar DFT 1D
-def dft_1D_test():
-	_array = np.array([25,36,89,214,36,55,41,2,3,255], dtype=np.uint8)
-	dft = dft_1D(_array)
-	print(_array)
-	print(dft)
-	print(idft_1D(dft))
-
 
 # Discrete fourier transform 2D com 1 canal
 def dft_2D_gray_scale(_array):
@@ -174,7 +139,7 @@ def dft_2D_gray_scale(_array):
 						sum_red += _array[m, n] * e
 				retornar[k][l] = sum_red / len_x / len_y
 
-		return np.frombuffer(retornar)
+		return np.array(retornar)
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
@@ -195,38 +160,44 @@ def idft_2D_gray_scale(_array):
 						sum_red += _array[k][l] * e
 				retornar[m][n] = int(sum_red.real + 0.5)
 
-		return np.frombuffer(retornar)
+		return np.array(retornar)
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
-# Testa o dft 2D com 1 canal
-def dft_2D_gray_scale_test():
-	_array = np.array([[0, 30, 65],
-					 [80, 118, 140],
-					 [163, 200, 255]], dtype=np.uint8)
+   
+def fft_rec_1D(_array):
+	len_x = len(_array)
+	if len_x <= 1:
+		return _array
+	else:
+		even = fft_rec_1D([_array[i] for i in range(0, len_x, 2)])
+		odd = fft_rec_1D([_array[i] for i in range(1, len_x, 2)])
+		combined = [0] * len_x
+		for m in range(len_x//2):
+			t = even[m]
+			#t = _array[m]
+			combined[m] = t + cmath.exp(( -1j * PI2 * m) / len_x) * odd[m] #_array[int(len_x/2)] #Fodd[m]
+			combined[m + len_x//2] = t - cmath.exp(( -1j * PI2 * m) / len_x) * odd[m] #_array[int(len_x/2)] #Fodd[m]
 
-	print("\n###### array")
-	print(_array)
-
-	dft = dft_2D_gray_scale(_array)
-	print("\n###### OP1")
-	print(dft)
-
-	print("\n###### OP2")
-	print(FT_2D(_array))
-
-	print("\n###### INV 1")
-	print(idft_2D_gray_scale(dft))
+		return combined
 
 
-def dft_2D_gray_scale_image_test():
-	lena_jpg = abrir(IMG_LENNA_GS)
-	mostrar(rgb2gray(lena_jpg))
 
-	lena_dft = dft_2D_gray_scale(lena_jpg)
-	#mostrar(lena_dft)
 
-	lena_idft = idft_2D_gray_scale(lena_dft)
-	mostrar(lena_idft)
 
-#dft_2D_gray_scale_image_test()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
