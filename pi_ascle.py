@@ -14,7 +14,7 @@ PI2 = cmath.pi * 2.0
 
 
 # 1 - usar sempre o dtype int8 OK
-def abrir(path):
+def imread(path):
 	if type(path) is str:
 		return np.asarray(Image.open(path))
 	else:
@@ -22,7 +22,7 @@ def abrir(path):
 		
 
 # 2 - se ligar no grayscale (color map), imagens pequenas (interpolação nearest) OK
-def mostrar(img, titulo="Imagem"):
+def imshow(img, titulo="Imagem"):
 	if type(img) is np.ndarray:
 		if ncanais(img) == 1:
 			plt.imshow(img, interpolation='nearest', cmap=cm.gray)
@@ -70,6 +70,13 @@ def rgb2gray(img):
 	else:
 		raise TypeError("Image must be a numpy.ndarray")
 
+
+def imreadgray(path):
+	if type(path) is str:
+		return rgb2gray(np.asarray(Image.open(path)))
+	else:
+		raise TypeError("Path must be a string")
+		
 
 # Questão 18 - Crie uma função chamada seSquare3, que retorna o elemento estruturante binário [[1,1, 1], [1, 1, 1], [1, 1, 1]].
 def seSquare3():

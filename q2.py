@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pi_ascle as cl
+import asclepiades_neto as cl
 import numpy as np
 
 from numpy.fft import fft
@@ -23,8 +23,8 @@ SIN_COMBO_2_GIF = 'sincombo2.gif'
 SINX3_GIF = 'sinx3.gif'
 
 
-def questao3(_nome_imagem = "lena1.jpg"):
-	imagem = cl.rgb2gray(cl.abrir("exercicio_fft/" + _nome_imagem))
+def questao_3(_nome_imagem = "lena1.jpg"):
+	imagem = cl.rgb2gray(cl.imread("exercicio_fft/" + _nome_imagem))
 	lena_dft = fft(imagem)
 	lena_ifft = ifft(lena_dft)
 
@@ -44,14 +44,14 @@ def questao3(_nome_imagem = "lena1.jpg"):
 			# print(lena_ifft[r, c])
 			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
 
-	cl.mostrar(imagem, _nome_imagem)
-	cl.mostrar(lena_dft_real, "REAL - " + _nome_imagem)
-	cl.mostrar(lena_dft_imag, "IMAG - " + _nome_imagem)
-	cl.mostrar(lena_ifft_real, "INVERSA - " + _nome_imagem)
+	cl.imshow(imagem, _nome_imagem)
+	cl.imshow(lena_dft_real, "REAL - " + _nome_imagem)
+	cl.imshow(lena_dft_imag, "IMAG - " + _nome_imagem)
+	cl.imshow(lena_ifft_real, "INVERSA - " + _nome_imagem)
 
 
 def questao_2(_nome_imagem):
-	imagem = cl.abrir("exercicio_fft/"+_nome_imagem)
+	imagem = cl.imread("exercicio_fft/"+_nome_imagem)
 	lena_dft = fft(imagem)
 	lena_ifft = ifft(lena_dft)
 	
@@ -67,14 +67,14 @@ def questao_2(_nome_imagem):
 	lena_ifft_real = lena_dft_real = np.zeros(lena_ifft.shape)
 	for r in range(0, cl.size(lena_ifft)[1]-1):
 		for c in range(0, cl.size(lena_ifft)[0]-1):
-			print(type(lena_ifft[r, c]))
-			print(lena_ifft[r, c])
+			#print(type(lena_ifft[r, c]))
+			#print(lena_ifft[r, c])
 			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
 	
-	cl.mostrar(imagem, _nome_imagem)
-	cl.mostrar(lena_dft_real, "REAL - "+_nome_imagem)
-	cl.mostrar(lena_dft_imag, "IMAG - "+_nome_imagem)
-	cl.mostrar(lena_ifft_real, "INVERSA - "+_nome_imagem)
+	cl.imshow(imagem, _nome_imagem)
+	cl.imshow(lena_dft_real, "REAL - "+_nome_imagem)
+	cl.imshow(lena_dft_imag, "IMAG - "+_nome_imagem)
+	cl.imshow(lena_ifft_real, "INVERSA - "+_nome_imagem)
 
 
 def letra_a():
@@ -128,7 +128,7 @@ def print_q2():
 	letra_l()
 	
 	
-questao3()
+questao_3()
 
 
 
