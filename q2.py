@@ -24,11 +24,30 @@ SINX3_GIF = 'sinx3.gif'
 
 
 def questao3(_nome_imagem = "lena1.jpg"):
-	#imagem = cl.abrir("exercicio_fft/"+_nome_imagem)
-	#lena_dft = fft(imagem)
-	#lena_ifft = ifft(lena_dft)
-	questao_2("lena1.jpg")
+	imagem = cl.rgb2gray(cl.abrir("exercicio_fft/" + _nome_imagem))
+	lena_dft = fft(imagem)
+	lena_ifft = ifft(lena_dft)
 
+	# pega a parte real e a partye imaginaria
+	lena_dft_real = np.zeros(lena_dft.shape)
+	lena_dft_imag = np.zeros(lena_dft.shape)
+	for r in range(0, cl.size(lena_dft)[1] - 1):
+		for c in range(0, cl.size(lena_dft)[0] - 1):
+			lena_dft_real[r, c] = lena_dft[r, c].real
+			lena_dft_imag[r, c] = lena_dft[r, c].imag
+
+	# convere a ifft em imagem
+	lena_ifft_real = lena_dft_real = np.zeros(lena_ifft.shape)
+	for r in range(0, cl.size(lena_ifft)[1] - 1):
+		for c in range(0, cl.size(lena_ifft)[0] - 1):
+			# print(type(lena_ifft[r, c]))
+			# print(lena_ifft[r, c])
+			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
+
+	cl.mostrar(imagem, _nome_imagem)
+	cl.mostrar(lena_dft_real, "REAL - " + _nome_imagem)
+	cl.mostrar(lena_dft_imag, "IMAG - " + _nome_imagem)
+	cl.mostrar(lena_ifft_real, "INVERSA - " + _nome_imagem)
 
 
 def questao_2(_nome_imagem):
@@ -48,6 +67,8 @@ def questao_2(_nome_imagem):
 	lena_ifft_real = lena_dft_real = np.zeros(lena_ifft.shape)
 	for r in range(0, cl.size(lena_ifft)[1]-1):
 		for c in range(0, cl.size(lena_ifft)[0]-1):
+			print(type(lena_ifft[r, c]))
+			print(lena_ifft[r, c])
 			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
 	
 	cl.mostrar(imagem, _nome_imagem)

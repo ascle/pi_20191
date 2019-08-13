@@ -57,15 +57,14 @@ def size(img):
 
 # 5 - rgb2gray g = 0,299r + 0,587g + 0,114b + 0,0a     entrada imagem  retorna imagem
 def rgb2gray(img):
-	img_clone = copy.deepcopy(img)
-	if type(img_clone) is np.ndarray:
-		if ncanais(img_clone) == 1:
-			return img_clone
+	if type(img) is np.ndarray:
+		if ncanais(img) == 1:
+			return copy.deepcopy(img)
 		else:
+			img_clone = np.zeros((img.shape[0], img.shape[0]))
 			for r in range(0, size(img_clone)[1]-1):
 				for c in range(0, size(img_clone)[0]-1):
-					#temp = copy.deepcopy(img_clone[r, c])
-					img_clone[r, c] = np.array([np.uint8((img_clone[r, c][0] * 0.299) + (img_clone[r, c][1] * 0.587) + (img_clone[r, c][2] * 0.114))], dtype=np.uint8)
+					img_clone[r, c] = (img[r, c][0] * 0.299) + (img[r, c][1] * 0.587) + (img[r, c][2] * 0.114)
 
 		return img_clone
 	else:
