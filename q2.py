@@ -59,19 +59,19 @@ def questao_2(_nome_imagem):
 		for c in range(0, cl.size(lena_ifft)[0]-1):
 			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
 	
-	cl.imshow(imagem, _nome_imagem)
+	#cl.imshow(imagem, _nome_imagem)
 	cl.imshow(im_dft_real, "REAL - "+_nome_imagem)
-	cl.imshow(im_dft_imag, "IMAG - "+_nome_imagem)
-	cl.imshow(lena_ifft_real, "INVERSA - "+_nome_imagem)
+	#cl.imshow(im_dft_imag, "IMAG - "+_nome_imagem)
+	#cl.imshow(lena_ifft_real, "INVERSA - "+_nome_imagem)
 
 
 def img_real_imag(imagem):
 	# pega a parte real e a partye imaginaria
-	dft_real = np.zeros(imagem.shape) #, dtype=np.uint8)
+	dft_real = np.zeros(imagem.shape, dtype=np.uint8)
 	dft_imag = np.zeros(imagem.shape )
 	for r in range(0, cl.size(imagem)[1]-1):
 		for c in range(0, cl.size(imagem)[0]-1):
-			dft_real[r, c] = imagem[r, c].real
+			dft_real[r, c] = imagem[r, c].real 
 			dft_imag[r, c] = imagem[r, c].imag
 
 	return (dft_real, dft_imag)

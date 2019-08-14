@@ -14,6 +14,7 @@
 # http://code.activestate.com/recipes/578997-2d-discrete-fourier-transform/
 # https://en.wikipedia.org/wiki/FFT_algorithm
 # https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm#Pseudocode
+# https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_transforms/py_fourier_transform/py_fourier_transform.html
 # https://qist.github.com/wilem/9824988
 # https://gist.github.com/bellbind/1505153
 # https://gist.github.com/lukicdarkoo/1ab6a9a7b24025cb428a
