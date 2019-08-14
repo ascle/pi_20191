@@ -22,26 +22,21 @@ SIN_COMBO_GIF = 'sincombo.gif'
 SIN_COMBO_2_GIF = 'sincombo2.gif'
 SINX3_GIF = 'sinx3.gif'
 
-
+# Diagrama de módulo
+# Diagrama de fase
+# Qual é o dominio da frequencia de uma imagem?
 def questao_3(_nome_imagem = "lena1.jpg"):
 	imagem = cl.rgb2gray(cl.imread("exercicio_fft/" + _nome_imagem))
 	lena_dft = fft(imagem)
 	lena_ifft = ifft(lena_dft)
 
-	# pega a parte real e a partye imaginaria
-	lena_dft_real = np.zeros(lena_dft.shape)
-	lena_dft_imag = np.zeros(lena_dft.shape)
-	for r in range(0, cl.size(lena_dft)[1] - 1):
-		for c in range(0, cl.size(lena_dft)[0] - 1):
-			lena_dft_real[r, c] = lena_dft[r, c].real
-			lena_dft_imag[r, c] = lena_dft[r, c].imag
+	global lena_dft_real, lena_dft_imag
+	(lena_dft_real, lena_dft_imag) = img_real_imag(lena_dft)
 
 	# convere a ifft em imagem
-	lena_ifft_real = lena_dft_real = np.zeros(lena_ifft.shape)
+	lena_ifft_real = np.zeros(imagem.shape)
 	for r in range(0, cl.size(lena_ifft)[1] - 1):
 		for c in range(0, cl.size(lena_ifft)[0] - 1):
-			# print(type(lena_ifft[r, c]))
-			# print(lena_ifft[r, c])
 			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
 
 	cl.imshow(imagem, _nome_imagem)
@@ -51,31 +46,35 @@ def questao_3(_nome_imagem = "lena1.jpg"):
 
 
 def questao_2(_nome_imagem):
-	imagem = cl.imread("exercicio_fft/"+_nome_imagem)
+	imagem = cl.imreadgray("exercicio_fft/"+_nome_imagem)
 	lena_dft = fft(imagem)
 	lena_ifft = ifft(lena_dft)
-	
-	# pega a parte real e a partye imaginaria
-	lena_dft_real = np.zeros(lena_dft.shape)
-	lena_dft_imag = np.zeros(lena_dft.shape)
-	for r in range(0, cl.size(lena_dft)[1]-1):
-		for c in range(0, cl.size(lena_dft)[0]-1):
-			lena_dft_real[r, c] = lena_dft[r, c].real
-			lena_dft_imag[r, c] = lena_dft[r, c].imag
+
+	global im_dft_real, im_dft_imag
+	(im_dft_real, im_dft_imag) = img_real_imag(lena_dft)
 			
 	#convere a ifft em imagem
-	lena_ifft_real = lena_dft_real = np.zeros(lena_ifft.shape)
+	lena_ifft_real = np.zeros(imagem.shape)
 	for r in range(0, cl.size(lena_ifft)[1]-1):
 		for c in range(0, cl.size(lena_ifft)[0]-1):
-			#print(type(lena_ifft[r, c]))
-			#print(lena_ifft[r, c])
 			lena_ifft_real[r, c] = int(lena_ifft[r, c].real + 0.5)
 	
 	cl.imshow(imagem, _nome_imagem)
-	cl.imshow(lena_dft_real, "REAL - "+_nome_imagem)
-	cl.imshow(lena_dft_imag, "IMAG - "+_nome_imagem)
+	cl.imshow(im_dft_real, "REAL - "+_nome_imagem)
+	cl.imshow(im_dft_imag, "IMAG - "+_nome_imagem)
 	cl.imshow(lena_ifft_real, "INVERSA - "+_nome_imagem)
 
+
+def img_real_imag(imagem):
+	# pega a parte real e a partye imaginaria
+	dft_real = np.zeros(imagem.shape) #, dtype=np.uint8)
+	dft_imag = np.zeros(imagem.shape )
+	for r in range(0, cl.size(imagem)[1]-1):
+		for c in range(0, cl.size(imagem)[0]-1):
+			dft_real[r, c] = imagem[r, c].real
+			dft_imag[r, c] = imagem[r, c].imag
+
+	return (dft_real, dft_imag)
 
 def letra_a():
 	questao_2(SIN2_GIF)
@@ -128,7 +127,9 @@ def print_q2():
 	letra_l()
 	
 	
-questao_3()
+print_q2()
+
+#questao_3()
 
 
 
